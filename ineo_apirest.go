@@ -16,28 +16,43 @@ import (
 	"net/http"
 )
 
+var (
+	APIKEY_FAKE = "cd66a4f9-8a9b-4a8c-a02a-ff2d7d1c3e3c"
+	APIKEY1     = "c6aa27d6-fc9b-4223-8665-1de556cd7a09"
+	APIKEY2     = "b4e77488-5330-2a27-2d07-4ce64d0af88d"
+
+	//URL_BASE+":"+PORT+URL_ADDRESS1+URL_ADDRESS2
+	//URL_BASE="http://51.178.19.210"
+	URL_BASE     = "http://127.0.0.1" //localhost server
+	URL_ADDRESS1 = "/api/v1/"
+	URL_ADDRESS2 = "gateways"
+	PORT_FAKE    = "8080" //Fake PORT localhost
+	PORT1        = "51882"
+	PORT2        = "1882"
+)
+
 func main() {
 	// URL de la API
-	//url := "http://51.178.19.210:8080/#/organizations/1/applications"
 	//url := "http://51.178.19.210:1882/api/v1/pirs/70b3d56371d3e040/"
 	//url := "http://51.178.19.210:1882/api/v1/pirs/"
-	url := "http://127.0.0.1:8080/api/v1/gateways"
+	url := URL_BASE + ":" + PORT_FAKE + URL_ADDRESS1 + URL_ADDRESS2
 
-	// Crear una nueva solicitud GET
+	// créer une nouvelle requête GET
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		fmt.Println("Échec de la demande GET:", err)
 		return
 	}
 
-	// Configurar los headers requeridos
+	// Configurer les headers requis
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("APIKey", "cd66a4f9-8a9b-4a8c-a02a-ff2d7d1c3e3c") //Fake APIKEY
+	req.Header.Set("APIKey", APIKEY_FAKE) //APIKEY
 
-	fmt.Println("Content-Type :", req.Header.Get("Content-Type"))
-	fmt.Println("APIKey Niveau 1 :", req.Header.Get("APIKey"))
+	fmt.Println("URL :", url)
+	fmt.Println("Content-Type :", req.Header.Get("Content-Type")) //DEBUG Content-Type
+	fmt.Println("APIKey :", req.Header.Get("APIKey"))             //DEBUG APIKey
 
-	// Realizar la solicitud HTTP
+	// Faire la requête HTTP
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
@@ -46,13 +61,10 @@ func main() {
 	}
 	defer resp.Body.Close()
 
-	// Leer y procesar la respuesta
-	// ...
-
-	// Ejemplo de lectura de la respuesta como cadena de texto
+	// lire la réponse sous forme de chaîne de texte
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Println("Error al leer la respuesta:", err)
+		fmt.Println("Erreur de lecture de la réponse:", err)
 		return
 	}
 	fmt.Println(string(body))
