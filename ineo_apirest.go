@@ -33,14 +33,10 @@ func main() {
 	// Configurar los headers requeridos
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("APIKey", "cd66a4f9-8a9b-4a8c-a02a-ff2d7d1c3e3c") //Fake APIKEY
-	/*
-		req.Header.Set("APIKey Niveau 1", "c6aa27d6-fc9b-4223-8665-1de556cd7a09")
-		req.Header.Set("APIKey Niveau 2", "b4e77488-5330-2a27-2d07-4ce64d0af88d")
 
-		fmt.Println("Content-Type :", req.Header.Get("Content-Type"))
-		fmt.Println("APIKey Niveau 1 :", req.Header.Get("APIKey Niveau 1"))
-		fmt.Println("APIKey Niveau 2 :", req.Header.Get("APIKey Niveau 2"))
-	*/
+	fmt.Println("Content-Type :", req.Header.Get("Content-Type"))
+	fmt.Println("APIKey Niveau 1 :", req.Header.Get("APIKey"))
+
 	// Realizar la solicitud HTTP
 	client := &http.Client{}
 	resp, err := client.Do(req)
